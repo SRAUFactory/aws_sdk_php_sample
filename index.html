@@ -50,21 +50,20 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-								View Confirm!!
+							<button type="button" id="viewEc2Info" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+								View EC2 Info
 							</button>
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Confirm Test</h4>
+											<h4 class="modal-title" id="myModalLabel">EC2 Instances</h4>
 										</div>
 										<div class="modal-body">
 											Is this test OK?
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">NG</button>
 											<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
 										</div>
 									</div>
@@ -75,11 +74,22 @@
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 					$("ul").css("background-color", "#edeff1");
+					$("button#viewEc2Info").click(function() {
+						$.ajax({
+							type : "GET",
+							url : "https://app57971f8a02581.mobingicloud.com/get_ec2_info.php",
+							dataType: 'json',
+							success : function(data) {
+								jQuery.each(data, function(){
+									console.log(this);
+								});
+							}
+						});
+					});
 			});
 		</script>
 	</body>
