@@ -76,20 +76,33 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
+			function setDialogMessage(message) {
+				$($("button#viewEc2Info").attr("data-target") + " .modal-body").html(message);
+			}
+
+			function setEc2Info(data) {
+				setDialogMessage("", false);
+				jQuery.each(data, function(){
+					jQuery.each(this.Instances, function() {
+						console.log(this);
+					});
+				});
+				setDialogMessage("Complete load!!");
+			}
+
+			function getEc2Info() {
+				$.ajax({
+					type : "GET",
+					url : "https://app57971f8a02581.mobingicloud.com/get_ec2_info.php",
+					dataType: 'json',
+					success : setEc2Info,
+				});
+				setDialogMessage("Now loading...");
+			}
+
 			$(function() {
 					$("ul").css("background-color", "#edeff1");
-					$("button#viewEc2Info").click(function() {
-						$.ajax({
-							type : "GET",
-							url : "https://app57971f8a02581.mobingicloud.com/get_ec2_info.php",
-							dataType: 'json',
-							success : function(data) {
-								jQuery.each(data, function(){
-									console.log(this);
-								});
-							}
-						});
-					});
+					$("button#viewEc2Info").click(getEc2Info);
 			});
 		</script>
 	</body>
