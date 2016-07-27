@@ -76,18 +76,20 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
-			function setDialogMessage(message) {
-				$($("button#viewEc2Info").attr("data-target") + " .modal-body").html(message);
-			}
-
 			function setEc2Info(data) {
-				setDialogMessage("", false);
+				var modalBody = $($("button#viewEc2Info").attr("data-target") + " .modal-body");
+				modalBody.html("");
 				jQuery.each(data, function(){
 					jQuery.each(this.Instances, function() {
-						console.log(this);
+						var ec2Info = "";
+						ec2Info += "<dt>インスタンスID<dt><dd>" + this.InstanceId + "</dd>";
+						ec2Info += "<dt>インスタンスタイプ<dt><dd>" + this.InstanceType + "</dd>";
+						ec2Info += "<dt>アベイラビリティーゾーン<dt><dd>" + this.Placement.AvailabilityZone + "</dd>";
+						ec2Info += "<dt>インスタンスの状態<dt><dd>" + this.State.Name + "</dd>";
+						ec2Info += "<dt>パブリックIP<dt><dd>" + this.PublicIpAddress + "</dd>";
+						modalBody.html(modalBody.html() + "<dl>" + ec2Info  + "</dl>");
 					});
 				});
-				setDialogMessage("Complete load!!");
 			}
 
 			function getEc2Info() {
@@ -97,7 +99,7 @@
 					dataType: 'json',
 					success : setEc2Info,
 				});
-				setDialogMessage("Now loading...");
+				$($("button#viewEc2Info").attr("data-target") + " .modal-body").html("Now loading...");
 			}
 
 			$(function() {
