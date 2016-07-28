@@ -1,11 +1,11 @@
 function getEc2InstanceHtml(ec2Instance) {
-	var ec2InfoHtml = "<dl>";
+	var ec2InfoHtml = "";
 	jQuery.each(ec2Instance, function(name, value) {
 		ec2InfoHtml += "<dt>" + name  + "<dt><dd>";
 		ec2InfoHtml += (typeof value == "object")? getEc2InstanceHtml(value) : value;
 		ec2InfoHtml += "</dd>";
 	});
-	return ec2InfoHtml + "</dl>";
+	return ec2InfoHtml;
 }
 
 function setEc2Info(data) {
@@ -13,7 +13,7 @@ function setEc2Info(data) {
 	modalBody.html("");
 	jQuery.each(data, function(){
 		jQuery.each(this.Instances, function() {
-			modalBody.html(modalBody.html() + getEc2InstanceHtml(this));
+			modalBody.html(modalBody.html() + "<dl>" + getEc2InstanceHtml(this) + "</dl>");
 		});
 	});
 }
