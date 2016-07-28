@@ -55,4 +55,5 @@ $(function() {
 	$("div#LinkMenu").css("background-color", "#edeff1");
 	$("button#viewEc2Info").click(getEc2Info);
 	toggleListMark('a[data-toggle="collapse"]');
+	$("p").css("font-size", "18px");
 });
