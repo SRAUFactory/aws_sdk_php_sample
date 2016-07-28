@@ -21,7 +21,7 @@ function setEc2Info(data) {
 	var height = window.innerHeight;
 	jQuery.each(data, function(){
 		jQuery.each(this.Instances, function() {
-			ec2InfoHtml += getEc2InstanceHtml(this, this.InstanceId, 'Instance:' + this.InstanceId);
+			ec2InfoHtml += getEc2InstanceHtml(this, this.InstanceId, 'Instance Info : ' + this.InstanceId);
 		});
 	});
 	$('#loader-bg ,#loader').css('display','none');
