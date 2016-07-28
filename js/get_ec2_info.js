@@ -26,6 +26,7 @@ function setEc2Info(data) {
 	});
 	$('#loader-bg ,#loader').css('display','none');
 	$("#wrap").html('<ul class="nav nav-list nav-list-vivid">' + ec2InfoHtml  + '</ul>').css({'display':'block',"max-height": height * 0.7, "overflow-y":"scroll"});
+	toggleListMark('#wrap a[data-toggle="collapse"]');
 }
 
 function getEc2Info() {
@@ -39,9 +40,19 @@ function getEc2Info() {
 	});
 }
 
+function toggleListMark(target) {
+	$(target).click(function(){
+		var span = $(this).children()[0];
+		var mark = $(span).html();
+		mark = (mark == '+')? '-' : '+';
+		$(span).html(mark);
+	});
+}
+
 $(function() {
 	$('#wrap').css('display','none');
 	$('#loader-bg ,#loader').css({'display':'none', 'text-align':'center'});
 	$("div#LinkMenu").css("background-color", "#edeff1");
 	$("button#viewEc2Info").click(getEc2Info);
+	toggleListMark('a[data-toggle="collapse"]');
 });
