@@ -1,14 +1,9 @@
 function getEc2InstanceHtml(ec2Instance) {
-	var viewInfo = {
-		"インスタンスID" : ec2Instance.InstanceId,
-		"インスタンスタイプ" : ec2Instance.InstanceType,
-		"アベイラビリティーゾーン" : ec2Instance.Placement.AvailabilityZone,
-		"インスタンスの状態" : ec2Instance.State.Name,
-		"パブリックIP" : ec2Instance.PublicIpAddress,
-	};
 	var ec2InfoHtml = "<dl>";
-	jQuery.each(viewInfo, function(name, value) { 
-		ec2InfoHtml += "<dt>" + name  + "<dt><dd>" + value + "</dd>";
+	jQuery.each(ec2Instance, function(name, value) {
+		ec2InfoHtml += "<dt>" + name  + "<dt><dd>";
+		ec2InfoHtml += (typeof value == "object")? getEc2InstanceHtml(value) : value;
+		ec2InfoHtml += "</dd>";
 	});
 	return ec2InfoHtml + "</dl>";
 }
