@@ -34,6 +34,6 @@ function getEc2Info() {
 }
 
 $(function() {
-	$("ul").css("background-color", "#edeff1");
+	$("div#LinkMenu").css("background-color", "#edeff1");
 	$("button#viewEc2Info").click(getEc2Info);
 });
