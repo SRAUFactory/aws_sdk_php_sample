@@ -5,10 +5,12 @@ function getEc2InstanceHtml(ec2Instance, elementId, elementLabel) {
 	ec2InfoHtml += '<div class="collapse" id="' + elementId + '">';
 	ec2InfoHtml += '<ul class="nav nav-list nav-list-vivid">';
 	jQuery.each(ec2Instance, function(name, value) {
-		if (typeof value == "object") {
-			ec2InfoHtml += getEc2InstanceHtml(value, elementId + name, name);
-		} else {
+		if (typeof value != "object" || Object.keys(value).length == 0) {
 			ec2InfoHtml += '<li><a><dt>' + name  + '</dt><dd>' + value + '</dd></a></li>';
+		} else if (Object.keys(value).length == 1 && value.length == 1) {
+			ec2InfoHtml += getEc2InstanceHtml(value[0], elementId + name, name);
+		} else {
+			ec2InfoHtml += getEc2InstanceHtml(value, elementId + name, name);
 		}
 	});
 	return ec2InfoHtml + '</ul></div></li>';
