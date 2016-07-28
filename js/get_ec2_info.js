@@ -18,13 +18,14 @@ function getEc2InstanceHtml(ec2Instance, elementId, elementLabel) {
 
 function setEc2Info(data) {
 	var ec2InfoHtml = "";
+	var height = window.innerHeight;
 	jQuery.each(data, function(){
 		jQuery.each(this.Instances, function() {
 			ec2InfoHtml += getEc2InstanceHtml(this, this.InstanceId, 'Instance:' + this.InstanceId);
 		});
 	});
 	$('#loader-bg ,#loader').css('display','none');
-	$("#wrap").html('<ul class="nav nav-list nav-list-vivid">' + ec2InfoHtml  + '</ul>').css('display','block');
+	$("#wrap").html('<ul class="nav nav-list nav-list-vivid">' + ec2InfoHtml  + '</ul>').css({'display':'block',"max-height": height * 0.7, "overflow-y":"scroll"});
 }
 
 function getEc2Info() {
