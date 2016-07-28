@@ -1,6 +1,6 @@
 function getEc2InstanceHtml(ec2Instance, elementId, elementLabel) {
 	var ec2InfoHtml = '<li>';
-	ec2InfoHtml += '<a data-toggle="collapse" href="#' + elementId + '" aria-expand="false" aria-controls="' + elementId + '">';
+	ec2InfoHtml += '<a data-toggle="collapse" href="#' + elementId + '" aria-controls="' + elementId + '">';
 	ec2InfoHtml += elementLabel + '<span class="badge pull-right">+</span></a>';
 	ec2InfoHtml += '<div class="collapse" id="' + elementId + '">';
 	ec2InfoHtml += '<ul class="nav nav-list nav-list-vivid">';
