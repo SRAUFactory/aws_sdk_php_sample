@@ -1,21 +1,27 @@
-function getEc2InstanceHtml(ec2Instance) {
-	var ec2InfoHtml = "";
+function getEc2InstanceHtml(ec2Instance, elementId, elementLabel) {
+	var ec2InfoHtml = '<li>';
+	ec2InfoHtml += '<a data-toggle="collapse" href="#' + elementId + '" aria-expand="false" aria-controls="' + elementId + '">';
+	ec2InfoHtml += elementLabel + '<span class="badge pull-right">+</span></a>';
+	ec2InfoHtml += '<div class="collapse" id="' + elementId + '">';
+	ec2InfoHtml += '<ul class="nav nav-list nav-list-vivid">';
 	jQuery.each(ec2Instance, function(name, value) {
-		ec2InfoHtml += "<dt>" + name  + "<dt><dd>";
-		ec2InfoHtml += (typeof value == "object")? getEc2InstanceHtml(value) : value;
-		ec2InfoHtml += "</dd>";
+		if (typeof value == "object") {
+			ec2InfoHtml += getEc2InstanceHtml(value, elementId + name, name);
+		} else {
+			ec2InfoHtml += '<li><a>' + name  + ':' + value + '</a></li>';
+		}
 	});
-	return ec2InfoHtml;
+	return ec2InfoHtml + '</ul></div></li>';
 }
 
 function setEc2Info(data) {
-	var modalBody = $($("button#viewEc2Info").attr("data-target") + " .modal-body");
-	modalBody.html("");
+	var ec2InfoHtml = "";
 	jQuery.each(data, function(){
 		jQuery.each(this.Instances, function() {
-			modalBody.html(modalBody.html() + "<dl>" + getEc2InstanceHtml(this) + "</dl>");
+			ec2InfoHtml += getEc2InstanceHtml(this, this.InstanceId, this.InstanceId);
 		});
 	});
+	$($("button#viewEc2Info").attr("data-target") + " .modal-body").html('<ul class="nav nav-list nav-list-vivid">' + ec2InfoHtml  + '</ul>');
 }
 
 function getEc2Info() {
